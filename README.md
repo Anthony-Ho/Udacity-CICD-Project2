@@ -57,19 +57,41 @@ The objective of the project is to demonstrate:
     ![Alt text](img/github-actions-results_1.14.1.png)
     ![Alt text](img/github-actions-results_1.14.2.png)  
 
-* 
-* Successful deploy of the project in Azure Pipelines.  [Note the official documentation should be referred to and double checked as you setup CI/CD](https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/python-webapp?view=azure-devops).
+* Prepare the Flask Starter code and Configure the Azure Pipeline for Continous Delivery
+    * Copy all neccessary Flask Starter files, including at least `app.py`, `requirements.txt`, `Housing_price_models/*`, `README.md`, `make_prediction.sh`, and `make_predictt_azure_app.sh`.
+    * Test whether the flask application can run on Azure Cloud Shell, 
+        * "`make install; python -m flask run`"
+        * Check the port of the flask program is running and then edit the `make_prediction.sh` with the correct port number, then we should have the correct prediction and result like to followin:
+        ```bash
+        anthony [ ~ ]$ ./make_prediction.sh
+        Port: 5000
+        {"prediction":[20.35373177134412]}  
+        ```
+    * Test if we can deploy the starter code as an Azure Webapp service,
+        * using command, "`az webapp up -g <resource_group> -n <app_name>`"
+        * after the successful deployment of the webapp, we should have the URL to access from the retuen JSON output.
+        * Check the Azure portal or follow the link from the result to check if the service endpoint is up and running.
+        * Then, edit the correct URL in the `make_predict_acure_app.sh`.  IF the service runs, we should have the result like the following:
+        ```bash
+        anthony [ ~ ]$ ./make_prediction.sh
+        Port: 443
+        {"prediction":[20.35373177134412]} 
+        ```  
 
-* Running Azure App Service from Azure Pipelines automatic deployment
+* Then, we can setup the azure pipeline ans we could referred the details to the [offical documentation](https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/python-webapp?view=azure-devops).
+    * Go to Azure Devops to create your development organization and create a new project.
+    * Go to your new project and select `Pipeline` from you left hand side panel, and then create a new pipeline.
+    * Select repository as "Github", select your project code repository and then anthenicate and authorize Azure Devops to access your Github repository.
+    * Then configure using "Python to Linux Web App on Azure" as template to configure your pipeline. Then, we have to authorize the Pipeline to use your Azure resources.
+    * Edit the pipeline YAML file, at least using the correct version of python.
+    * After "Save and Commit" the YAML file, the new file will be committed to your repository and then pipeline will execute.  
 
-* Successful prediction from deployed flask app in Azure Cloud Shell.  [Use this file as a template for the deployed prediction](https://github.com/udacity/nd082-Azure-Cloud-DevOps-Starter-Code/blob/master/C2-AgileDevelopmentwithAzure/project/starter_files/flask-sklearn/make_predict_azure_app.sh).
-The output should look similar to this:
-
-```bash
-udacity@Azure:~$ ./make_predict_azure_app.sh
-Port: 443
-{"prediction":[20.35373177134412]}
-```
+ * Then, we can test the newly automatic deploy webapp by using "make_predict_azure_app.sh", the successful result will be similar to the following:
+    ```bash
+    anthony [ ~ ]$ ./make_prediction.sh
+    Port: 443
+    {"prediction":[20.35373177134412]} 
+    ```
 
 * Output of streamed log files from deployed application
 
