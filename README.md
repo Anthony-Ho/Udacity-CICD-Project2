@@ -1,5 +1,7 @@
 # Overview
 
+[![Python application](https://github.com/Anthony-Ho/Udacity-CICD-Project2/actions/workflows/python-app.yml/badge.svg)](https://github.com/Anthony-Ho/Udacity-CICD-Project2/actions/workflows/python-app.yml)
+
 The objective of the project is to demonstrate:
 
 1. Using Github to complete continuous integration of an application; and
@@ -94,6 +96,13 @@ The objective of the project is to demonstrate:
     Port: 443
     {"prediction":[20.35373177134412]} 
     ```
+
+* Load test the deployed webapp using "`locust`".  The following are screen capture of the "`locust`" test result.  
+
+    ![alt text](img/Screenshot%202023-05-17%20at%207.17.33%20PM.png)
+    ![alt text](img/Screenshot%202023-05-17%20at%207.16.12%20PM.png)
+
+
 
 * Output of streamed log files from deployed application.  The following is the sample of log file captured for starting the log as well as the log message when requests were received.
     ```
